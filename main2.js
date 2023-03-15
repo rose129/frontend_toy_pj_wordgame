@@ -19,8 +19,6 @@
 
 */
 
-
-
 const $button = document.querySelector('button.btn');
 const $input = document.querySelector('input');
 const $word = document.querySelector('span#word');
@@ -30,7 +28,8 @@ const $time = document.querySelector(".time")
 const $view =document.querySelector(".word_view");
 
 let i = 1;
-const regex = /^[ㄱ-ㅎ|가-힣]+$/; // 입력값에 한글만 받도록 설정
+// const regex = /^[ㄱ-ㅎ|가-힣]+$/; // 입력값에 한글만 자음,모음 포함 받도록 설정
+const regex = /^[가-힣]+$/; // 입력값에 한글만 받도록 설정
 let words = []; //입력된 단어들 널을 빈 배열
 
 const restartBtn = document.querySelector('.start_btn')

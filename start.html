@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="./start.css">
 </head>
 <body>
-    
     <div class="modal hidden">
         <div class="modal_bg"></div>
          <div class="modal_content">
@@ -25,10 +24,13 @@
         </div>
       </div>
     <section>
-        <!-- <h1>끝말잇기</h1> -->
+        <div class='title-container'>
+            <span id='text'></span>
+            <div class='title-underscore' id='title'>&#95;</div>
+        </div>
+
         <button id="open">규칙보기</button>
         <button class="btn" onclick="location.href='main.html'">START!</button>
-        
     </section>
 
 </body>
@@ -50,6 +52,58 @@
     modalBg.addEventListener("click", closeModal)
     closeBtn.addEventListener("click", closeModal)
     openButton.addEventListener("click", openModal)
+
+    // function([string1, string2],target id,[color1,color2])    
+    titleText(['HELLO !', 'WORD RELAY GAME'],'text',['#ff7eb3;','#b18597']);
+
+    function titleText(words, id, colors) {
+    if (colors === undefined) colors = ['#fff'];
+    var visible = true;
+    var con = document.getElementById('title');
+    var letterCount = 1;
+    var x = 1;
+    var waiting = false;
+    var target = document.getElementById(id)
+    target.setAttribute('style', 'color:' + colors[0])
+    window.setInterval(function() {
+
+        if (letterCount === 0 && waiting === false) {
+        waiting = true;
+        target.innerHTML = words[0].substring(0, letterCount)
+        window.setTimeout(function() {
+            var usedColor = colors.shift();
+            colors.push(usedColor);
+            var usedWord = words.shift();
+            words.push(usedWord);
+            x = 1;
+            target.setAttribute('style', 'color:' + colors[0])
+            letterCount += x;
+            waiting = false;
+        }, 1000)
+        } else if (letterCount === words[0].length + 1 && waiting === false) {
+        waiting = true;
+        window.setTimeout(function() {
+            x = -1;
+            letterCount += x;
+            waiting = false;
+        }, 1000)
+        } else if (waiting === false) {
+        target.innerHTML = words[0].substring(0, letterCount)
+        letterCount += x;
+        }
+    }, 120)
+    window.setInterval(function() {
+        if (visible === true) {
+        con.className = 'title-underscore title_hidden'
+        visible = false;
+
+        } else {
+        con.className = 'title-underscore'
+
+        visible = true;
+        }
+    }, 400)
+    }
     
 </script>
 </html>
